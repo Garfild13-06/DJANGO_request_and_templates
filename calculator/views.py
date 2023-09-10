@@ -21,36 +21,51 @@ DATA = {
 }
 
 
-def test(request):
-    name = request.GET.get("name")
-    age = int(request.GET.get("age", 20))
-    return HttpResponse(f'{name=} {age=}')
-
-
-def summ(request, a, b):
-    result = a + b
-    return HttpResponse(f'Sum = {result}')
+def recipe(request, recipe_name):
+    """
+    Общий обработчик, которые принимает параметр из URL'а
+    :param request:
+    :param recipe_name:
+    :return:
+    """
+    try:
+        servings = int(request.GET.get("servings"))
+    except:
+        servings = 1
+    data = DATA[recipe_name]
+    context = {"items": [[x, data[x] * servings] for x in data]}
+    print(context)
+    return render(request, 'calculator/index.html', context=context)
 
 
 def omlet(request):
-    items=DATA["omlet"]
-    return render(request, 'calculator/index.html')
-    # return HttpResponse(items)
+    try:
+        servings = int(request.GET.get("servings"))
+    except:
+        servings = 1
+    data = DATA["omlet"]
+    context = {"items": [[x, data[x] * servings] for x in data]}
+    print(context)
+    return render(request, 'calculator/index.html', context=context)
 
 
 def pasta(request):
-    return HttpResponse('Hello from django')
+    try:
+        servings = int(request.GET.get("servings"))
+    except:
+        servings = 1
+    data = DATA["pasta"]
+    context = {"items": [[x, data[x] * servings] for x in data]}
+    print(context)
+    return render(request, 'calculator/index.html', context=context)
 
 
 def buter(request):
-    return HttpResponse('Hello from django')
-
-# Напишите ваш обработчик. Используйте DATA как источник данных
-# Результат - render(request, 'calculator/index.html', context)
-# В качестве контекста должен быть передан словарь с рецептом:
-# context = {
-#   'recipe': {
-#     'ингредиент1': количество1,
-#     'ингредиент2': количество2,
-#   }
-# }
+    try:
+        servings = int(request.GET.get("servings"))
+    except:
+        servings = 1
+    data = DATA["buter"]
+    context = {"items": [[x, data[x] * servings] for x in data]}
+    print(context)
+    return render(request, 'calculator/index.html', context=context)

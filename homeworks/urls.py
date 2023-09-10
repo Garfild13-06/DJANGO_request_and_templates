@@ -18,13 +18,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from calculator.views import test, summ, omlet
-from recipes.views import index
+from calculator.views import omlet, recipe, pasta, buter
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index),
-    path('test/', test),
-    path('sum/<int:a>/<int:b>/', summ),
+    path('recipe/<str:recipe_name>/', recipe),
     path('omlet/', omlet),
+    path('pasta/', pasta),
+    path('buter/', buter)
 ]
